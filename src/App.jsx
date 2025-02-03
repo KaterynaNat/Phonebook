@@ -26,7 +26,7 @@ function App() {
   return isRefreshing ? (
     <p className="text-center text-lg mt-10">Loading...</p>
   ) : (
-    <div className="flex flex-col min-h-screen bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: "url('/public/assets/pb-bg-desk.JPG')" }}>
+    <div className="flex flex-col min-h-screen bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: "url('/assets/pb-bg-desk.JPG')" }}>
       <AppBar />
       <div className="flex-grow">
         <Routes>
