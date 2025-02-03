@@ -10,7 +10,7 @@ const AppBar = () => {
   return (
     <header
       className="flex justify-between items-center p-8 h-20 bg-cover bg-center shadow-md"
-      style={{ backgroundImage: "url('/src/assets/BANNER.webp')" }}
+      style={{ backgroundImage: "url('/assets/BANNER.webp')" }}
     >
       <Navigation />
       {isLoggedIn ? <UserMenu /> : <AuthNav />}

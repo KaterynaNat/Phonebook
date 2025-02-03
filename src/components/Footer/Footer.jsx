@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer
       className="flex flex-col items-center justify-center p-2 text-white bg-cover bg-center"
-      style={{ backgroundImage: "url('/src/assets/BANNER.webp')" }}
+      style={{ backgroundImage: "url('/assets/BANNER.webp')" }}
     >
       <div className="flex gap-6 mb-2">
         <a
