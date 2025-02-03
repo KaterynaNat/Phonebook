@@ -1,27 +1,15 @@
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
-import styles from "./ContactForm.module.css";
-
-// Redux
 import { useDispatch, useSelector } from "react-redux";
-import { addContact } from "../../redux/contactsOps";
-import { selectContacts } from "../../redux/selectors";
-
-const nameRegex = /^[A-Za-z ]+$/;
-const phoneRegex = /^\+[1-9]\d{7,14}$/;
+import { addContact } from "../../redux/contacts/operations";
+import { selectContacts } from "../../redux/contacts/selectors";
+import toast from "react-hot-toast";
 
 const validationSchema = Yup.object({
-  name: Yup.string()
-    .matches(nameRegex, "Name must contain only latin letters")
-    .min(3, "Name must be at least 3 characters")
-    .max(50, "Name must not exceed 50 characters")
-    .required("Please enter data"),
+  name: Yup.string().min(3).max(50).required("Required"),
   number: Yup.string()
-    .matches(
-      phoneRegex,
-      "Phone number must be in international format, e.g. +380501234567"
-    )
-    .required("Please enter data"),
+    .matches(/^\+[1-9]\d{7,14}$/, "Enter a valid phone number")
+    .required("Required"),
 });
 
 const ContactForm = () => {
@@ -29,69 +17,57 @@ const ContactForm = () => {
   const contacts = useSelector(selectContacts);
 
   const handleSubmit = (values, { resetForm }) => {
-    const duplicate = contacts.find(
-      (contact) => contact.name.toLowerCase() === values.name.toLowerCase()
-    );
-    if (duplicate) {
-      alert(`${values.name} is already in contacts`);
+    if (
+      contacts.find((c) => c.name.toLowerCase() === values.name.toLowerCase())
+    ) {
+      toast.error(`${values.name} is already in contacts`);
       return;
     }
 
-    dispatch(
-      addContact({
-        id: String(Date.now()),
-        name: values.name,
-        number: values.number,
-      })
-    );
-
+    dispatch(addContact(values));
+    toast.success("Contact added successfully");
     resetForm();
   };
 
   return (
-    <div className={styles.formContainer}>
-      <Formik
-        initialValues={{ name: "", number: "" }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ errors, touched }) => (
-          <Form className={styles.form}>
-            <div className={styles.fieldContainer}>
-              <Field
-                type="text"
-                name="name"
-                placeholder="Enter name (latin letters only)"
-                className={`${styles.input} ${
-                  errors.name && touched.name ? styles.inputError : ""
-                }`}
-              />
-              {errors.name && touched.name && (
-                <div className={styles.error}>{errors.name}</div>
-              )}
-            </div>
+    <Formik
+      initialValues={{ name: "", number: "" }}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ errors, touched }) => (
+        <Form className="flex flex-col space-y-4 bg-purple-100 p-6 shadow-md rounded-lg">
+          <div>
+            <Field
+              name="name"
+              placeholder="Name"
+              className="w-full p-2 border rounded-lg"
+            />
+            {errors.name && touched.name && (
+              <p className="text-red-500 text-sm">{errors.name}</p>
+            )}
+          </div>
 
-            <div className={styles.fieldContainer}>
-              <Field
-                type="text"
-                name="number"
-                placeholder="Enter phone number, e.g. +380501234567"
-                className={`${styles.input} ${
-                  errors.number && touched.number ? styles.inputError : ""
-                }`}
-              />
-              {errors.number && touched.number && (
-                <div className={styles.error}>{errors.number}</div>
-              )}
-            </div>
+          <div>
+            <Field
+              name="number"
+              placeholder="Phone number"
+              className="w-full p-2 border rounded-lg"
+            />
+            {errors.number && touched.number && (
+              <p className="text-red-500 text-sm">{errors.number}</p>
+            )}
+          </div>
 
-            <button type="submit" className={styles.submitButton}>
-              Add Contact
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+          <button
+            type="submit"
+            className="bg-pink-300 text-white p-2 rounded-lg hover:bg-pink-400"
+          >
+            Add Contact
+          </button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

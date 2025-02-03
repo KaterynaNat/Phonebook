@@ -2,72 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
 body {
-  font-family: "Poppins", sans-serif;
-  background-color: #f9eef8;
-  color: #5d3f44;
-  margin: 0;
-  padding: 20px;
-  text-align: center;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-a {
-  text-decoration: none;
-  display: block;
-  color: #f8b7d1;
-}
-a:hover {
-  color: #ffacc8;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-ul {
-  list-style-type: none;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-left: 0;
-}
-
-address {
-  font-style: normal;
-}
-
-.section {
-  text-align: center;
-  padding: 20px;
+  @apply bg-pastelWhite text-hotPink font-sans;
 }
 
 h1 {
-  font-size: 36px;
-  color: #f08c9b;
-  text-align: center;
+  @apply text-4xl font-bold text-center text-glitterPink;
 }
 
 h2 {
-  font-size: 24px;
-  color: #f7a1c3;
-  text-align: center;
+  @apply text-2xl font-semibold text-center text-magicPink;
+}
+
+.container {
+  @apply max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md border border-glitterPink;
+}
+
+input {
+  @apply bg-white text-rose-300 border border-pink-100 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-pink-400;
 }
