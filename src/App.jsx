@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { refreshUser } from "./redux/auth/operations";
 import { selectIsRefreshing } from "./redux/auth/selectors";
 import { Routes, Route } from "react-router-dom";
-import HomePage from "../src/pages/Home/HomePage";
-import LoginPage from "../src/pages/Login/LoginPage";
-import RegisterPage from "../src/pages/Register/RegisterPage";
-import ContactsPage from "../src/pages/Contacts/ContactsPage";
-import PrivateRoute from "../src/routes/PrivateRoute";
-import RestrictedRoute from "../src/routes/RestrictedRoute";
-import AppBar from "./components/AppBar/AppBar";
-import Footer from "./components/Footer/Footer";
+import Layout from "./components/Layout/Layout";
+import HomePage from "./pages/Home/HomePage";
+import LoginPage from "./pages/Login/LoginPage";
+import RegisterPage from "./pages/Register/RegisterPage";
+import ContactsPage from "./pages/Contacts/ContactsPage";
+import PrivateRoute from "./routes/PrivateRoute";
+import RestrictedRoute from "./routes/RestrictedRoute";
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -26,13 +25,13 @@ function App() {
   return isRefreshing ? (
     <p className="text-center text-lg mt-10">Loading...</p>
   ) : (
-    <div className="flex flex-col min-h-screen bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: "url('/assets/pb-bg-desk.JPG')" }}>
-      <AppBar />
-      <div className="flex-grow">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
+    <>
+      <Toaster position="top-center" reverseOrder={false} />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
           <Route
-            path="/login"
+            path="login"
             element={
               <RestrictedRoute>
                 <LoginPage />
@@ -40,7 +39,7 @@ function App() {
             }
           />
           <Route
-            path="/register"
+            path="register"
             element={
               <RestrictedRoute>
                 <RegisterPage />
@@ -48,18 +47,16 @@ function App() {
             }
           />
           <Route
-            path="/contacts"
+            path="contacts"
             element={
               <PrivateRoute>
                 <ContactsPage />
               </PrivateRoute>
             }
           />
-        </Routes>
-      </div>
-      <Footer />
-      <Toaster position="top-center" reverseOrder={false} />
-    </div>
+        </Route>
+      </Routes>
+    </>
   );
 }
 
