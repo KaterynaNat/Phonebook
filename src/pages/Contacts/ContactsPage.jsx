@@ -18,20 +18,20 @@ const ContactsPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center p-6">
-      {/* Заголовок */}
+      {}
       <h1 className="text-3xl font-bold text-glitterPink mb-6">Contacts</h1>
 
-      {/* Контейнер для форми */}
+      {}
       <div className="w-full max-w-lg bg-pink-100 p-6 rounded-lg shadow-lg">
         <ContactForm />
       </div>
 
-      {/* Поле пошуку */}
+      {}
       <div className="w-full max-w-lg mt-4">
         <SearchBox />
       </div>
 
-      {/* Список контактів */}
+      {}
       <div className="w-full max-w-lg mt-6">
         {isLoading && <p className="text-center text-rose-300">Loading...</p>}
         {contacts.length === 0 && !isLoading ? (
@@ -41,7 +41,7 @@ const ContactsPage = () => {
         )}
       </div>
 
-      {/* Помилка (якщо є) */}
+      {}
       {error && <p className="text-center text-red-500 mt-4">Error: {error}</p>}
     </div>
   );
