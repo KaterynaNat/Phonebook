@@ -24,7 +24,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-purple-100 shadow-md rounded-lg border border-glitterPink">
+    <div className="max-w-md mx-auto p-6 bg-purple-100 shadow-md rounded-lg border">
       <h2 className="text-2xl font-semibold text-hotPink text-center mb-4">Login</h2>
       <Formik initialValues={{ email: "", password: "" }} validationSchema={validationSchema} onSubmit={handleSubmit}>
         {() => (
